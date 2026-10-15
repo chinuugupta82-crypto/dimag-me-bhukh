@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Admin · Dimag Me Bhukh</title>
+<link rel="stylesheet" href="admin.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand">🐦 Dimag Me Bhukh <span>Admin</span></div>
+  <div id="status" class="status" role="status" aria-live="polite">Loading…</div>
+  <div class="actions">
+    <button id="newPost" type="button" class="ghost newpost">✍️ New blog post</button>
+    <button id="pvBtn" type="button" class="ghost" aria-pressed="false">👁 Preview</button>
+    <button id="helpBtn" type="button" class="ghost">❓ Help</button>
+    <details class="more"><summary>⋯ More</summary>
+      <div class="menu">
+        <button id="connBtn" type="button" class="menuitem">🔗 Connection settings…</button>
+        <button id="histBtn" type="button" class="menuitem">🕘 Older versions…</button>
+        <button id="dl" type="button" class="menuitem">⬇ Download ZIP (backup)</button>
+        <label class="menuitem">Load a saved content.js <input id="restore" type="file" accept=".js,.json,.txt"></label>
+        <button id="discard" type="button" class="menuitem">Discard my draft</button>
+      </div>
+    </details>
+    <button id="pub" type="button" class="primary">🚀 Publish to website</button>
+  </div>
+</header>
+
+<div class="notice" id="notice"></div>
+<div class="done" id="pubBox" hidden>
+  <strong>Published.</strong> Your website shows the changes in about a minute. Refresh your website to see them.
+  <button id="pubClose" type="button" class="ghost dark">Close</button>
+</div>
+<div class="done" id="doneBox" hidden>
+  <strong>Your update was downloaded.</strong> To put it on your website:
+  <ol>
+    <li>Open the ZIP file you just downloaded and take out the files.</li>
+    <li>Upload <b>index.html</b>, <b>content.js</b> and any new photos in the <b>images</b> folder to your website, replacing the old ones.</li>
+    <li>Open your website and refresh the page.</li>
+  </ol>
+  <button id="doneClose" type="button" class="ghost">Close this message</button>
+</div>
+
+<div class="app">
+  <nav class="side" aria-label="Sections"></nav>
+  <main id="panel" class="panel" tabindex="-1"></main>
+  <aside class="pvwrap" aria-label="Preview"><div class="pvbar">Preview of your website</div><iframe id="pv" title="Website preview"></iframe></aside>
+</div>
+
+<dialog id="conn">
+  <h2>Connect to your website</h2>
+  <p>Do this once on each computer. It lets <b>Publish</b> update your website directly, with no downloading or uploading.</p>
+  <label class="fld"><span class="lab">Connection code (if someone gave you one)</span><textarea id="cCode" rows="2" placeholder="Paste the code here, then press Fill in"></textarea></label>
+  <button id="cFill" type="button" class="mini">Fill in from code</button>
+  <hr>
+  <label class="fld"><span class="lab">GitHub user name</span><input id="cOwner" type="text" autocomplete="off"></label>
+  <label class="fld"><span class="lab">Repository name</span><input id="cRepo" type="text" autocomplete="off"></label>
+  <label class="fld"><span class="lab">Branch (usually main)</span><input id="cBranch" type="text" value="main" autocomplete="off"></label>
+  <label class="fld"><span class="lab">Folder inside the repository (leave empty if the website is at the top)</span><input id="cPath" type="text" autocomplete="off"></label>
+  <label class="fld"><span class="lab">Secret key (access token)</span><input id="cToken" type="password" autocomplete="off"><span class="help">Kept only in this browser. Use a key that can change only this repository.</span></label>
+  <p id="cMsg" class="status" role="status"></p>
+  <div class="btnrow">
+    <button id="cTest" type="button" class="mini">Test connection</button>
+    <button id="cSave" type="button" class="primary dark">Save</button>
+    <button id="cMake" type="button" class="mini">Create a code to share</button>
+    <button id="cOff" type="button" class="mini danger">Disconnect</button>
+    <button id="cClose" type="button" class="mini">Close</button>
+  </div>
+  <textarea id="cOut" rows="3" readonly hidden></textarea>
+</dialog>
+<dialog id="hist">
+  <h2>Older versions</h2>
+  <p>Every time you publish, the website keeps a copy. Pick one to load it back into the editor, check it, then publish again.</p>
+  <ul id="histList" class="histlist"></ul>
+  <button id="histClose" type="button" class="mini">Close</button>
+</dialog>
+<dialog id="help">
+  <h2>How this admin works</h2>
+  <ol>
+    <li><b>Pick a section</b> on the left and change the words. The preview shows your changes.</li>
+    <li>Press <b>Publish to website</b>. Your website updates by itself in about a minute.</li>
+  </ol>
+  <h3>Writing a blog post</h3>
+  <p>Press <b>✍️ New blog post</b>, write it, set <b>Status</b> to <b>Published</b> and press <b>Publish to website</b>. It then shows in the <b>Blog</b> section of your home page and gets its own page. Posts left on <b>Draft</b> stay private.</p>
+  <p>The order of the sections on your website follows <b>Menu &amp; section order</b> (under Settings): move an entry up or down and its section moves too.</p>
+  <p>The first time, press <b>Publish</b> and fill in the connection details (see Connection settings). After that it is one click.</p>
+  <h3>Photos</h3>
+  <p>Click <b>Choose file</b> under a photo to replace it. Photos are made smaller automatically. Add a short description for every photo.</p>
+  <h3>Formatting words</h3>
+  <p>A blank line starts a new paragraph. <code>*italic*</code> gives <i>italic</i>, <code>**bold**</code> gives <b>bold</b>, and <code>[text](https://address)</code> makes a link.</p>
+  <h3>Cards and lists</h3>
+  <p>Open a card to edit it. Use ↑ ↓ to move it, <b>Copy</b> to duplicate it and <b>Delete</b> to remove it. <b>+ Add</b> makes a new one.</p>
+  <h3>Good to know</h3>
+  <ul>
+    <li>Your draft is kept in this browser. Use the same computer and browser next time, or download often.</li>
+    <li>Nothing goes live until you press <b>Publish</b>. Only someone with the secret key can publish.</li>
+    <li><b>More → Older versions</b> brings back an earlier version. <b>More → Download ZIP</b> saves a backup on your computer.</li>
+  </ul>
+  <button id="helpClose" type="button" class="primary">Close</button>
+</dialog>
+
+<script src="../content.js"></script>
+<script src="../template.js"></script>
+<script src="schema.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>
